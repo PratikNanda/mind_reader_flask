@@ -7,21 +7,75 @@
 </head>
 <body>
 <div class="container">
-    <h1>🔮 I Read Your Mind!</h1>
+    <h1>🔮 Mind Reading in Progress...</h1>
 
     <div class="card reveal">
-        <p>Your emoji is:</p>
-        <p class="big-emoji">{{ secret_emoji }}</p>
-        <p class="subtitle">Did I get it right? 😏</p>
+        <!-- Mind-reading animation + roleplay -->
+        <div id="reading-section">
+            <div class="mind-orbit">
+                <div class="orbit-circle"></div>
+                <div class="orbit-circle orbit-circle-delay"></div>
+                <div class="orbit-center">🧠</div>
+            </div>
+
+            <p class="reading-line" id="reading-line">
+                Okay, stay focused on your emoji...
+            </p>
+
+            <div class="thinking-dots">
+                <span>.</span><span>.</span><span>.</span>
+            </div>
+        </div>
+
+        <!-- Final result (initially hidden) -->
+        <div id="result-section" class="hidden">
+            <p class="small-label">I think I’ve got it.</p>
+            <p>Your emoji is:</p>
+            <p class="big-emoji">{{ secret_emoji }}</p>
+            <p class="subtitle">Did I guess it right? 😏</p>
+        </div>
     </div>
 
     <div class="controls center">
-        <a href="{{ url_for('restart') }}" class="btn primary">🔁 Try Again</a>
+        <a href="{{ url_for('restart') }}" id="try-again" class="btn primary hidden">
+            🔁 Try Again
+        </a>
     </div>
 
     <footer>
-        <p>Thanks for playing! 🧠</p>
+        <p>Mind Reader Game • Just for fun 🎉</p>
     </footer>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const readingSection = document.getElementById("reading-section");
+        const resultSection = document.getElementById("result-section");
+        const tryAgainBtn = document.getElementById("try-again");
+        const readingLine = document.getElementById("reading-line");
+
+        const lines = [
+            "Okay, stay focused on your emoji...",
+            "Scanning your thoughts...",
+            "Decoding numbers into emojis...",
+            "Almost there..."
+        ];
+
+        let index = 0;
+        const interval = setInterval(() => {
+            index = (index + 1) % lines.length;
+            readingLine.textContent = lines[index];
+        }, 900);
+
+        // After 2.8 seconds, show the result
+        setTimeout(() => {
+            clearInterval(interval);
+            readingSection.classList.add("hidden");
+            resultSection.classList.remove("hidden");
+            tryAgainBtn.classList.remove("hidden");
+            document.querySelector("h1").textContent = "🔮 I Read Your Mind!";
+        }, 2800);
+    });
+</script>
 </body>
 </html>
