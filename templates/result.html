@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Emoji 🔮</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🔮 I Read Your Mind!</h1>
+
+    <div class="card reveal">
+        <p>Your emoji is:</p>
+        <p class="big-emoji">{{ secret_emoji }}</p>
+        <p class="subtitle">Did I get it right? 😏</p>
+    </div>
+
+    <div class="controls center">
+        <a href="{{ url_for('restart') }}" class="btn primary">🔁 Try Again</a>
+    </div>
+
+    <footer>
+        <p>Thanks for playing! 🧠</p>
+    </footer>
+</div>
+</body>
+</html>

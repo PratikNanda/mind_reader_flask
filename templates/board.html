@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Your Emoji 🧠</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🔢 Find Your Number</h1>
+    <p class="subtitle">Locate your result in the table and focus on its emoji.</p>
+
+    <div class="card board">
+        <h2>Number–Emoji Table</h2>
+        <p class="hint">All numbers from 0 to 99 are shown below.</p>
+
+        <div class="board-wrapper">
+            <table class="board-table">
+                <tbody>
+                {# board|batch(10) splits the list into rows of 10 items each #}
+                {% for row in board|batch(10) %}
+                    <tr>
+                        {% for item in row %}
+                            <td>
+                                <span class="number">{{ item.number }}</span>
+                                <span class="emoji">{{ item.emoji }}</span>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="controls center">
+        <a href="{{ url_for('instructions') }}" class="btn secondary">⬅️ Back</a>
+        <form method="POST" action="{{ url_for('reveal') }}" style="display: inline;">
+            <button type="submit" class="btn primary">🔮 Read My Mind</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>Focus on the emoji next to your number, then click “Read My Mind”.</p>
+    </footer>
+</div>
+</body>
+</html>
